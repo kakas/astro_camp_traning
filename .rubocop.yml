@@ -15,3 +15,6 @@ Style/TrailingCommaInHashLiteral:
 
 Style/Documentation:
   Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
