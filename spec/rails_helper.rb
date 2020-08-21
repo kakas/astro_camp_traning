@@ -22,6 +22,7 @@ require 'rspec/rails'
 #
 # Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 require 'support/simplecov_helper' # alway on top
+require 'support/database_cleaner'
 require 'support/factory_bot'
 require 'support/timecop'
 
