@@ -63,6 +63,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'timecop'
   gem 'database_cleaner-active_record'
+  gem 'simplecov', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
