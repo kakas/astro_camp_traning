@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :task do
-    title { 'task-title' }
-    content { 'task-content' }
+    title { Faker::Lorem.word }
+    content { Faker::Lorem.sentence }
     status { :pending }
     priority { :normal }
     start_time { Time.zone.now }
