@@ -1,24 +1,11 @@
-# README
+## 常用指令
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### 編輯 credentials.yml
 
-Things you may want to cover:
+`rails credentials:edit`
 
-* Ruby version
+### 設定 Travis CI 環境變數
 
-* System dependencies
+https://github.com/travis-ci/travis.rb#env
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

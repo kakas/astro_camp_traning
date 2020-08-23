@@ -11,4 +11,7 @@ class Task < ApplicationRecord
     high: 1,
     low: 2,
   }
+
+  EDITABLE_COLUMNS = %i[title content status priority start_time end_time].freeze
+  VIEWABLE_COLUMNS = [:id, *EDITABLE_COLUMNS].freeze
 end
