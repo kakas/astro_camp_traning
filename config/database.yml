@@ -11,9 +11,11 @@ default: &default
 
 development:
   <<: *default
+  database: astro_camp_traning_development
 
 test:
   <<: *default
+  database: astro_camp_traning_test
 
 production:
   <<: *default
