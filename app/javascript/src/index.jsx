@@ -12,7 +12,7 @@ const Root = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Root/>,
-    document.body.appendChild(document.createElement('div')),
+    <Root />,
+    document.body.appendChild(document.createElement('div'))
   )
 })
