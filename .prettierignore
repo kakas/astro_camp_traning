@@ -1,0 +1,5 @@
+log/**
+tmp/**
+public/packs/js/*.js
+
+node_modules
