@@ -1,14 +1,15 @@
 import { TASK_OVERVIEW } from 'actionTypes'
-import { select, take, all, call, put } from 'redux-saga/effects'
+import { take, all, call, put } from 'redux-saga/effects'
 import api from './api'
 
 function* initTasksFlow() {
-  yield take(TASK_OVERVIEW.INIT_DATE.REQUEST)
-  const { data, error } = yield call(api.getTasks)
+  const { page } = yield take(TASK_OVERVIEW.INIT_DATE.REQUEST)
+  const { data } = yield call(api.getTasks, page)
+  const { tasks, totalPages } = data
 
-  yield put({ type: TASK_OVERVIEW.INIT_DATE.SUCCEED, tasks: data })
+  yield put({ type: TASK_OVERVIEW.INIT_DATE.SUCCEED, tasks, totalPages })
 }
 
-export default function* () {
+export default function* taskOverviewSagas() {
   yield all([initTasksFlow()])
 }

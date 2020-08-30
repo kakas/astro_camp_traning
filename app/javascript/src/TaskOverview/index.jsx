@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container, Icon, Label, Menu, Table } from 'semantic-ui-react'
+import { Container, Icon, Table, Menu } from 'semantic-ui-react'
 import { initTasks } from './actions'
 
 export default function TaskOverview() {

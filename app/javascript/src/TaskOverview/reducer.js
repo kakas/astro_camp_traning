@@ -2,6 +2,7 @@ import { TASK_OVERVIEW } from 'actionTypes'
 
 const initialState = {
   tasks: [],
+  totalPages: 0,
 }
 
 const taskOverviewReducer = (state = initialState, action) => {
@@ -10,6 +11,7 @@ const taskOverviewReducer = (state = initialState, action) => {
       return {
         ...state,
         tasks: action.tasks,
+        totalPages: action.totalPages,
       }
     default:
       return state
