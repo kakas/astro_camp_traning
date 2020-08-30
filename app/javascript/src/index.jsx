@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import 'semantic-ui-css/semantic.min.css'
 import Hello from './Hello'
 
 const Root = () => {
   return (
     <div>
-      <Hello name="Kakas"></Hello>
+      <Hello name="Kakas" />
     </div>
   )
 }
