@@ -20,6 +20,14 @@ module.exports = {
   plugins: ['react'],
   rules: {
     semi: ['error', 'never'],
+    'import/prefer-default-export': 'off',
   },
   ignorePatterns: ['public/packs/js/*.js'],
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['app/javascript/src'],
+      },
+    },
+  },
 }
