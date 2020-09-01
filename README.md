@@ -7,5 +7,3 @@
 ### 設定 Travis CI 環境變數
 
 https://github.com/travis-ci/travis.rb#env
-
-

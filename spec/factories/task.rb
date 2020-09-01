@@ -7,6 +7,6 @@ FactoryBot.define do
     status { :pending }
     priority { :normal }
     start_time { Time.zone.now }
-    end_time { Time.zone.now }
+    end_time { 10.days.from_now }
   end
 end

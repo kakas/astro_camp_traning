@@ -4,8 +4,16 @@ class TasksController < ApplicationController
   before_action :load_task, only: %i[show update destroy]
 
   def index
-    # TODO: use kaminari
-    render json: Task.all.select(Task::VIEWABLE_COLUMNS)
+    respond_to do |format|
+      format.html { render html: '', layout: true }
+      format.json do
+        tasks = Task.page(params['page']).per(10).select(Task::VIEWABLE_COLUMNS)
+        render json: {
+          tasks: tasks,
+          total_pages: tasks.total_pages,
+        }
+      end
+    end
   end
 
   def create
