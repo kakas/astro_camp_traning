@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Table, Pagination } from 'semantic-ui-react'
-import { fetchTasks } from './actions'
+import { fetchTasks } from 'ducks/tasks'
 
 export default function ProjectPage() {
   const dispatch = useDispatch()
-  const projectPage = useSelector((state) => state.projectPage)
+  const tasks = useSelector((state) => state.tasks)
   const [activePage, setActivePage] = useState(1)
 
   const handlePageChange = (e, { activePage: newActivepage }) => {
@@ -32,7 +32,7 @@ export default function ProjectPage() {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {projectPage.tasks.map((task) => {
+          {tasks.tasks.map((task) => {
             return (
               <Table.Row key={task.id}>
                 <Table.Cell>{task.id} </Table.Cell>
@@ -52,7 +52,7 @@ export default function ProjectPage() {
             <Table.HeaderCell colSpan="7">
               <Pagination
                 activePage={activePage}
-                totalPages={projectPage.totalPages}
+                totalPages={tasks.totalPages}
                 onPageChange={handlePageChange}
               />
             </Table.HeaderCell>

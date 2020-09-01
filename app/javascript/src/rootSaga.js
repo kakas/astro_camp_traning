@@ -1,6 +1,6 @@
 import { all, fork } from 'redux-saga/effects'
-import projectPageSagas from 'ProjectPage/sagas'
+import * as tasks from './ducks/tasks'
 
 export default function* rootSaga() {
-  yield all([fork(projectPageSagas)])
+  yield all([fork(tasks.sagas)])
 }
