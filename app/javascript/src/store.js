@@ -3,10 +3,10 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './rootSaga'
 
-import taskOverview from './TaskOverview/reducer'
+import projectPage from './ProjectPage/reducer'
 
 const rootReducer = combineReducers({
-  taskOverview,
+  projectPage,
 })
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(

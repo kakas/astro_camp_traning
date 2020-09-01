@@ -1,13 +1,13 @@
-import { TASK_OVERVIEW } from 'actionTypes'
+import { PROJECT_PAGE } from 'actionTypes'
 
 const initialState = {
   tasks: [],
   totalPages: 0,
 }
 
-const taskOverviewReducer = (state = initialState, action) => {
+const projectPageReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TASK_OVERVIEW.INIT_DATE.SUCCEED:
+    case PROJECT_PAGE.FETCH_TASKS.SUCCEED:
       return {
         ...state,
         tasks: action.tasks,
@@ -18,4 +18,4 @@ const taskOverviewReducer = (state = initialState, action) => {
   }
 }
 
-export default taskOverviewReducer
+export default projectPageReducer

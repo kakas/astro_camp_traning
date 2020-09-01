@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Table, Pagination } from 'semantic-ui-react'
-import { initTasks } from './actions'
+import { fetchTasks } from './actions'
 
-export default function TaskOverview() {
+export default function ProjectPage() {
   const dispatch = useDispatch()
-  const taskOverview = useSelector((state) => state.taskOverview)
+  const projectPage = useSelector((state) => state.projectPage)
   const [activePage, setActivePage] = useState(1)
 
   const handlePageChange = (e, { activePage: newActivepage }) => {
     setActivePage(newActivepage)
-    dispatch(initTasks(newActivepage))
+    dispatch(fetchTasks(newActivepage))
   }
 
   useEffect(() => {
-    dispatch(initTasks(activePage))
+    dispatch(fetchTasks(activePage))
   }, [])
 
   return (
@@ -32,7 +32,7 @@ export default function TaskOverview() {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {taskOverview.tasks.map((task) => {
+          {projectPage.tasks.map((task) => {
             return (
               <Table.Row key={task.id}>
                 <Table.Cell>{task.id} </Table.Cell>
@@ -52,7 +52,7 @@ export default function TaskOverview() {
             <Table.HeaderCell colSpan="7">
               <Pagination
                 activePage={activePage}
-                totalPages={taskOverview.totalPages}
+                totalPages={projectPage.totalPages}
                 onPageChange={handlePageChange}
               />
             </Table.HeaderCell>
