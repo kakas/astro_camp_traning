@@ -13,7 +13,7 @@ const TASKS = {
 //        Reducer
 // ========================
 const initialState = {
-  tasks: [],
+  all: [],
   totalPages: 0,
 }
 
@@ -22,7 +22,7 @@ export default function projectPageReducer(state = initialState, action) {
     case TASKS.FETCH_TASKS.SUCCEED:
       return {
         ...state,
-        tasks: action.tasks,
+        all: action.tasks,
         totalPages: action.totalPages,
       }
     default:

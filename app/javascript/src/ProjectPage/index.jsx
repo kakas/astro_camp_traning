@@ -32,7 +32,7 @@ export default function ProjectPage() {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {tasks.tasks.map((task) => {
+          {tasks.all.map((task) => {
             return (
               <Table.Row key={task.id}>
                 <Table.Cell>{task.id} </Table.Cell>
