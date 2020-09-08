@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector, shallowEqual } from 'react-redux'
 import { Button, Container, Table, Pagination } from 'semantic-ui-react'
-import { openTaskFormModal, updateTaskFormData } from 'ducks/projectPage'
-import { fetchTasks } from 'ducks/tasks'
+import { fetchTasks, openTaskFormModal, updateTaskFormData } from './actions'
 import EditForm from './EditForm'
 
 export default function ProjectPage() {
   const dispatch = useDispatch()
-  const tasks = useSelector((state) => state.tasks)
+  const { tasks, totalPages } = useSelector(
+    (state) => state.projectPage,
+    shallowEqual
+  )
   const [activePage, setActivePage] = useState(1)
 
   const handlePageChange = (e, { activePage: newActivepage }) => {
@@ -35,7 +37,7 @@ export default function ProjectPage() {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {tasks.all.map((task) => {
+          {tasks.map((task) => {
             return (
               <Table.Row key={task.id}>
                 <Table.Cell>
@@ -63,7 +65,7 @@ export default function ProjectPage() {
             <Table.HeaderCell colSpan="7">
               <Pagination
                 activePage={activePage}
-                totalPages={tasks.totalPages}
+                totalPages={totalPages}
                 onPageChange={handlePageChange}
               />
             </Table.HeaderCell>

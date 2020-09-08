@@ -1,13 +1,12 @@
 import React from 'react'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux'
-import _ from 'lodash'
 import { Button, Modal, Form } from 'semantic-ui-react'
 import {
   updateTaskFormData,
   openTaskFormModal,
   clearFormFieldErrors,
-} from 'ducks/projectPage'
-import { updateTask } from 'ducks/tasks'
+  updateTask,
+} from '../actions'
 
 const statusOptions = [
   { key: 'pending', value: 'pending', text: 'pending' },
