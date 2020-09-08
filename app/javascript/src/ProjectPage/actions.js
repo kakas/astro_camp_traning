@@ -41,3 +41,10 @@ export function clearFormFieldErrors(field) {
     field,
   }
 }
+
+export function setTaskFormIsLoading(isLoading) {
+  return {
+    type: PROJECT_PAGE.SET_FORM_MODAL_IS_LOADING,
+    isLoading,
+  }
+}

@@ -5,6 +5,7 @@ const initialState = {
   tasks: [],
   totalPages: 0,
   editFormIsOpen: false,
+  editFormIsLoading: false,
   taskFormData: { ...emptyTask },
   formErrors: {},
 }
@@ -46,6 +47,12 @@ export default function projectPageReducer(state = initialState, action) {
       return {
         ...state,
         formErrors: _.omit(state.formErrors, [action.field]),
+      }
+
+    case PROJECT_PAGE.SET_FORM_MODAL_IS_LOADING:
+      return {
+        ...state,
+        editFormIsLoading: action.isLoading,
       }
     default:
       return state

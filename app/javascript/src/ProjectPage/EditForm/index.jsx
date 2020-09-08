@@ -22,10 +22,12 @@ const priorityOptions = [
 
 function EditForm() {
   const dispatch = useDispatch()
-  const { taskFormData, formErrors, editFormIsOpen: isOpen } = useSelector(
-    (state) => state.projectPage,
-    shallowEqual
-  )
+  const {
+    taskFormData,
+    formErrors,
+    editFormIsOpen: isOpen,
+    editFormIsLoading: isLoading,
+  } = useSelector((state) => state.projectPage, shallowEqual)
 
   const handleChange = (e, { name, value }) => {
     dispatch(updateTaskFormData({ ...taskFormData, [name]: value }))
@@ -51,7 +53,7 @@ function EditForm() {
     <Modal open={isOpen}>
       <Modal.Content>
         <Modal.Description>
-          <Form>
+          <Form loading={isLoading}>
             <Form.Input
               label="Title"
               name="title"
@@ -85,23 +87,21 @@ function EditForm() {
               error={error('priority')}
             />
             {/* TODO: start_time and end_time */}
+            <Button
+              color="red"
+              content="Cancel"
+              onClick={() => dispatch(openTaskFormModal(false))}
+            />
+            <Button
+              color="blue"
+              content="Submit"
+              labelPosition="right"
+              icon="edit"
+              onClick={handleSubmit}
+            />
           </Form>
         </Modal.Description>
       </Modal.Content>
-      <Modal.Actions>
-        <Button
-          color="red"
-          content="Cancel"
-          onClick={() => dispatch(openTaskFormModal(false))}
-        />
-        <Button
-          color="blue"
-          content="Submit"
-          labelPosition="right"
-          icon="edit"
-          onClick={handleSubmit}
-        />
-      </Modal.Actions>
     </Modal>
   )
 }
