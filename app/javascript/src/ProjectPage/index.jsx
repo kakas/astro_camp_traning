@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container, Table, Pagination } from 'semantic-ui-react'
+import { Button, Container, Table, Pagination } from 'semantic-ui-react'
+import { openTaskFormModal, updateTaskFormData } from 'ducks/projectPage'
 import { fetchTasks } from 'ducks/tasks'
+import EditForm from './EditForm'
 
 export default function ProjectPage() {
   const dispatch = useDispatch()
@@ -19,6 +21,7 @@ export default function ProjectPage() {
 
   return (
     <Container>
+      <EditForm />
       <Table celled>
         <Table.Header>
           <Table.Row>
@@ -35,7 +38,15 @@ export default function ProjectPage() {
           {tasks.all.map((task) => {
             return (
               <Table.Row key={task.id}>
-                <Table.Cell>{task.id} </Table.Cell>
+                <Table.Cell>
+                  <Button
+                    content="Edit"
+                    onClick={() => {
+                      dispatch(openTaskFormModal(true))
+                      dispatch(updateTaskFormData({ ...task }))
+                    }}
+                  />
+                </Table.Cell>
                 <Table.Cell>{task.title} </Table.Cell>
                 <Table.Cell>{task.content}</Table.Cell>
                 <Table.Cell>{task.status}</Table.Cell>

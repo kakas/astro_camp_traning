@@ -1,12 +1,26 @@
 import axios from 'axios'
 import { take, all, call, put } from 'redux-saga/effects'
 import { toCamelCaseKey } from 'utils'
+import { addFormErrors, openTaskFormModal } from './projectPage'
 
 const TASKS = {
   FETCH_TASKS: {
     REQUEST: 'TASKS.FETCH_TASKS.REQUEST',
     SUCCEED: 'TASKS.FETCH_TASKS.SUCCEED',
   },
+  UPDATE_TASK: {
+    REQUEST: 'TASKS.UPDATE_TASK.REQUEST',
+    SUCCEED: 'TASKS.UPDATE_TASK.SUCCEED',
+  },
+}
+
+export const emptyTask = {
+  title: '',
+  content: '',
+  status: '',
+  priority: '',
+  start_time: '',
+  end_time: '',
 }
 
 // ========================
@@ -25,6 +39,13 @@ export default function projectPageReducer(state = initialState, action) {
         all: action.tasks,
         totalPages: action.totalPages,
       }
+    case TASKS.UPDATE_TASK.SUCCEED:
+      return {
+        ...state,
+        all: state.all.map((task) =>
+          task.id === action.task.id ? action.task : task
+        ),
+      }
     default:
       return state
   }
@@ -39,6 +60,11 @@ const api = {
       return { data: toCamelCaseKey(res.data) }
     })
   },
+  updateTask(task) {
+    return axios.patch(`/tasks/${task.id}`, { task }).catch((error) => {
+      return { errors: error.response.data }
+    })
+  },
 }
 
 // ========================
@@ -48,6 +74,13 @@ export function fetchTasks(page = 1) {
   return {
     type: TASKS.FETCH_TASKS.REQUEST,
     page,
+  }
+}
+
+export function updateTask(task) {
+  return {
+    type: TASKS.UPDATE_TASK.REQUEST,
+    task,
   }
 }
 
@@ -64,6 +97,20 @@ function* fetchTasksFlow() {
   }
 }
 
+function* updateTaskFlow() {
+  while (true) {
+    const { task } = yield take(TASKS.UPDATE_TASK.REQUEST)
+    const { errors } = yield call(api.updateTask, task)
+
+    if (errors) {
+      yield put(addFormErrors(errors))
+    } else {
+      yield put({ type: TASKS.UPDATE_TASK.SUCCEED, task })
+      yield put(openTaskFormModal(false))
+    }
+  }
+}
+
 export function* sagas() {
-  yield all([fetchTasksFlow()])
+  yield all([fetchTasksFlow(), updateTaskFlow()])
 }
