@@ -47,6 +47,16 @@ RSpec.describe 'Tasks', type: :request do
       expect { patch task_path(task.id), params: task_params }.to change { task.reload.title }.to('new-title')
       expect(response).to have_http_status(:ok)
     end
+
+    context 'when update task failed' do
+      it do
+        task = create(:task)
+        task_params = { task: { title: '' } }
+        patch task_path(task.id), params: task_params
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.body).to eq({ title: ["can't be blank"] }.to_json)
+      end
+    end
   end
 
   describe 'destroy task' do

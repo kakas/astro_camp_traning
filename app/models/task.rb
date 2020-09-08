@@ -9,6 +9,7 @@ class Task < ApplicationRecord
   # -------------------------- Associations ------------------------------
   # -------------------------- Validations -------------------------------
   validate :end_date_should_after_start_date
+  validates :title, presence: true
 
   # -------------------------- Scopes ------------------------------------
   # -------------------------- Callbacks ---------------------------------
