@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Container, Table, Pagination } from 'semantic-ui-react'
-import { fetchTasks } from 'ducks/tasks'
+import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import { Button, Container, Table, Pagination } from 'semantic-ui-react'
+import { fetchTasks, openTaskFormModal, updateTaskFormData } from './actions'
+import { emptyTask, FORM_TYPE } from './constants'
+import EditForm from './EditForm'
 
 export default function ProjectPage() {
   const dispatch = useDispatch()
-  const tasks = useSelector((state) => state.tasks)
+  const { tasks, totalPages } = useSelector(
+    (state) => state.projectPage,
+    shallowEqual
+  )
   const [activePage, setActivePage] = useState(1)
+  const [formType, setFormType] = useState(FORM_TYPE.CREATE)
 
   const handlePageChange = (e, { activePage: newActivepage }) => {
     setActivePage(newActivepage)
@@ -19,6 +25,16 @@ export default function ProjectPage() {
 
   return (
     <Container>
+      <EditForm formType={formType} />
+      <Button
+        content="New"
+        onClick={() => {
+          dispatch(openTaskFormModal(true))
+          dispatch(updateTaskFormData({ ...emptyTask }))
+          setFormType(FORM_TYPE.CREATE)
+        }}
+      />
+
       <Table celled>
         <Table.Header>
           <Table.Row>
@@ -32,10 +48,19 @@ export default function ProjectPage() {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {tasks.all.map((task) => {
+          {tasks.map((task) => {
             return (
               <Table.Row key={task.id}>
-                <Table.Cell>{task.id} </Table.Cell>
+                <Table.Cell>
+                  <Button
+                    content="Edit"
+                    onClick={() => {
+                      dispatch(openTaskFormModal(true))
+                      dispatch(updateTaskFormData({ ...task }))
+                      setFormType(FORM_TYPE.UPDATE)
+                    }}
+                  />
+                </Table.Cell>
                 <Table.Cell>{task.title} </Table.Cell>
                 <Table.Cell>{task.content}</Table.Cell>
                 <Table.Cell>{task.status}</Table.Cell>
@@ -52,7 +77,7 @@ export default function ProjectPage() {
             <Table.HeaderCell colSpan="7">
               <Pagination
                 activePage={activePage}
-                totalPages={tasks.totalPages}
+                totalPages={totalPages}
                 onPageChange={handlePageChange}
               />
             </Table.HeaderCell>
