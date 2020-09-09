@@ -38,11 +38,11 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'activerecord-import'
 gem 'kaminari'
+gem 'faker'
 
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.1'
-  gem 'faker'
 end
 
 group :development do
