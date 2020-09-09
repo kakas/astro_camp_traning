@@ -7,9 +7,9 @@ const api = {
       return { data: toCamelCaseKey(res.data) }
     })
   },
-  createTask(task) {
+  createTask(formData) {
     return axios
-      .post('/tasks', { task })
+      .post('/tasks', { task: formData })
       .then((res) => {
         return { data: res.data }
       })
@@ -17,10 +17,12 @@ const api = {
         return { errors: error.response.data }
       })
   },
-  updateTask(task) {
-    return axios.patch(`/tasks/${task.id}`, { task }).catch((error) => {
-      return { errors: error.response.data }
-    })
+  updateTask(formData) {
+    return axios
+      .patch(`/tasks/${formData.id}`, { task: formData })
+      .catch((error) => {
+        return { errors: error.response.data }
+      })
   },
 }
 

@@ -19,9 +19,9 @@ function* fetchTasksFlow() {
 
 function* createTaskFlow() {
   while (true) {
-    const { task } = yield take(PROJECT_PAGE.CREATE_TASK.REQUEST)
+    const { formData } = yield take(PROJECT_PAGE.CREATE_TASK.REQUEST)
     yield put(setTaskFormIsLoading(true))
-    const { data: newTask, errors } = yield call(api.createTask, task)
+    const { data: newTask, errors } = yield call(api.createTask, formData)
 
     if (errors) {
       yield put(addFormErrors(errors))
@@ -35,14 +35,17 @@ function* createTaskFlow() {
 
 function* updateTaskFlow() {
   while (true) {
-    const { task } = yield take(PROJECT_PAGE.UPDATE_TASK.REQUEST)
+    const { formData } = yield take(PROJECT_PAGE.UPDATE_TASK.REQUEST)
     yield put(setTaskFormIsLoading(true))
-    const { errors } = yield call(api.updateTask, task)
+    const { errors } = yield call(api.updateTask, formData)
 
     if (errors) {
       yield put(addFormErrors(errors))
     } else {
-      yield put({ type: PROJECT_PAGE.UPDATE_TASK.SUCCEED, task })
+      yield put({
+        type: PROJECT_PAGE.UPDATE_TASK.SUCCEED,
+        updatedTask: formData,
+      })
       yield put(openTaskFormModal(false))
     }
     yield put(setTaskFormIsLoading(false))

@@ -27,7 +27,7 @@ export default function projectPageReducer(state = initialState, action) {
       return {
         ...state,
         tasks: state.tasks.map((task) =>
-          task.id === action.task.id ? action.task : task
+          task.id === action.updatedTask.id ? action.updatedTask : task
         ),
       }
     case PROJECT_PAGE.OPEN_FORM_MODAL:

@@ -7,17 +7,17 @@ export function fetchTasks(page = 1) {
   }
 }
 
-export function createTask(task) {
+export function createTask(formData) {
   return {
     type: PROJECT_PAGE.CREATE_TASK.REQUEST,
-    task,
+    formData,
   }
 }
 
-export function updateTask(task) {
+export function updateTask(formData) {
   return {
     type: PROJECT_PAGE.UPDATE_TASK.REQUEST,
-    task,
+    formData,
   }
 }
 
