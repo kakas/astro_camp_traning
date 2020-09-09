@@ -1,12 +1,15 @@
 import React from 'react'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import { oneOf } from 'prop-types'
 import { Button, Modal, Form } from 'semantic-ui-react'
 import {
   updateTaskFormData,
   openTaskFormModal,
   clearFormFieldErrors,
+  createTask,
   updateTask,
 } from '../actions'
+import { FORM_TYPE } from '../constants'
 
 const statusOptions = [
   { key: 'pending', value: 'pending', text: 'pending' },
@@ -20,7 +23,7 @@ const priorityOptions = [
   { key: 'low', value: 'low', text: 'low' },
 ]
 
-function EditForm() {
+function EditForm({ formType }) {
   const dispatch = useDispatch()
   const {
     taskFormData,
@@ -35,7 +38,11 @@ function EditForm() {
   }
 
   const handleSubmit = () => {
-    dispatch(updateTask(taskFormData))
+    if (formType === FORM_TYPE.UPDATE) {
+      dispatch(updateTask(taskFormData))
+    } else {
+      dispatch(createTask(taskFormData))
+    }
   }
 
   /* eslint-disable consistent-return */
@@ -104,6 +111,10 @@ function EditForm() {
       </Modal.Content>
     </Modal>
   )
+}
+
+EditForm.propTypes = {
+  formType: oneOf(Object.keys(FORM_TYPE)).isRequired,
 }
 
 export default EditForm

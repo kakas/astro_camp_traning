@@ -17,6 +17,22 @@ function* fetchTasksFlow() {
   }
 }
 
+function* createTaskFlow() {
+  while (true) {
+    const { task } = yield take(PROJECT_PAGE.CREATE_TASK.REQUEST)
+    yield put(setTaskFormIsLoading(true))
+    const { data: newTask, errors } = yield call(api.createTask, task)
+
+    if (errors) {
+      yield put(addFormErrors(errors))
+    } else {
+      yield put({ type: PROJECT_PAGE.CREATE_TASK.SUCCEED, newTask })
+      yield put(openTaskFormModal(false))
+    }
+    yield put(setTaskFormIsLoading(false))
+  }
+}
+
 function* updateTaskFlow() {
   while (true) {
     const { task } = yield take(PROJECT_PAGE.UPDATE_TASK.REQUEST)
@@ -34,5 +50,5 @@ function* updateTaskFlow() {
 }
 
 export default function* sagas() {
-  yield all([fetchTasksFlow(), updateTaskFlow()])
+  yield all([fetchTasksFlow(), createTaskFlow(), updateTaskFlow()])
 }

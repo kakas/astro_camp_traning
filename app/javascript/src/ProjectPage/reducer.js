@@ -18,6 +18,11 @@ export default function projectPageReducer(state = initialState, action) {
         tasks: action.tasks,
         totalPages: action.totalPages,
       }
+    case PROJECT_PAGE.CREATE_TASK.SUCCEED:
+      return {
+        ...state,
+        tasks: [action.newTask, ...state.tasks],
+      }
     case PROJECT_PAGE.UPDATE_TASK.SUCCEED:
       return {
         ...state,

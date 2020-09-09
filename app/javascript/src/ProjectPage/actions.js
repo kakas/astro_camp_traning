@@ -7,6 +7,13 @@ export function fetchTasks(page = 1) {
   }
 }
 
+export function createTask(task) {
+  return {
+    type: PROJECT_PAGE.CREATE_TASK.REQUEST,
+    task,
+  }
+}
+
 export function updateTask(task) {
   return {
     type: PROJECT_PAGE.UPDATE_TASK.REQUEST,

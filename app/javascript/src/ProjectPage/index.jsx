@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux'
 import { Button, Container, Table, Pagination } from 'semantic-ui-react'
 import { fetchTasks, openTaskFormModal, updateTaskFormData } from './actions'
+import { emptyTask, FORM_TYPE } from './constants'
 import EditForm from './EditForm'
 
 export default function ProjectPage() {
@@ -11,6 +12,7 @@ export default function ProjectPage() {
     shallowEqual
   )
   const [activePage, setActivePage] = useState(1)
+  const [formType, setFormType] = useState(FORM_TYPE.CREATE)
 
   const handlePageChange = (e, { activePage: newActivepage }) => {
     setActivePage(newActivepage)
@@ -23,7 +25,16 @@ export default function ProjectPage() {
 
   return (
     <Container>
-      <EditForm />
+      <EditForm formType={formType} />
+      <Button
+        content="New"
+        onClick={() => {
+          dispatch(openTaskFormModal(true))
+          dispatch(updateTaskFormData({ ...emptyTask }))
+          setFormType(FORM_TYPE.CREATE)
+        }}
+      />
+
       <Table celled>
         <Table.Header>
           <Table.Row>
@@ -46,6 +57,7 @@ export default function ProjectPage() {
                     onClick={() => {
                       dispatch(openTaskFormModal(true))
                       dispatch(updateTaskFormData({ ...task }))
+                      setFormType(FORM_TYPE.UPDATE)
                     }}
                   />
                 </Table.Cell>
